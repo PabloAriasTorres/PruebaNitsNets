@@ -1,0 +1,1125 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API CMS",
+        "description": "Todas las rutas de la API",
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:8000"
+        }
+    ],
+    "paths": {
+        "/api/v1/deportes": {
+            "get": {
+                "tags": [
+                    "Deportes"
+                ],
+                "summary": "Obtener una lista de deportes",
+                "operationId": "68a9d1d3d21c267062e073ab25cbc2f7",
+                "responses": {
+                    "200": {
+                        "description": "Lista de deportes obtenida con éxito"
+                    },
+                    "404": {
+                        "description": "No se han encontrado deportes"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Deportes"
+                ],
+                "summary": "Registrar un nuevo deporte",
+                "operationId": "0b8b57ebd07a881d07e87cda92e1f99b",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nombre"
+                                ],
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string",
+                                        "example": "Baloncesto"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Deporte registrado con éxito"
+                    },
+                    "403": {
+                        "description": "No tiene permisos para realizar esta acción"
+                    },
+                    "500": {
+                        "description": "Deporte existente, pruebe otro deporte"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/deportes/{id}": {
+            "get": {
+                "tags": [
+                    "Deportes"
+                ],
+                "summary": "Obtener detalles de un deporte específico",
+                "operationId": "e2bc535a8d2149036be8a6a54a17ca29",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del deporte",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalles del deporte obtenidos con éxito"
+                    },
+                    "404": {
+                        "description": "Deporte no encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Deportes"
+                ],
+                "summary": "Actualizar los datos de un deporte",
+                "operationId": "08cc7c5bccc1729b8c4612eddebad682",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del deporte",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nombre"
+                                ],
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string",
+                                        "example": "Baloncesto"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Deporte actualizado con éxito"
+                    },
+                    "403": {
+                        "description": "No tiene permisos para realizar esta acción"
+                    },
+                    "404": {
+                        "description": "Deporte no encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Deportes"
+                ],
+                "summary": "Eliminar un deporte",
+                "operationId": "e0bc6c8e247aeb2cc0cef2cb686aa0e5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del deporte",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deporte eliminado con éxito"
+                    },
+                    "403": {
+                        "description": "No tiene permisos para realizar esta acción"
+                    },
+                    "404": {
+                        "description": "Deporte no encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/pistas": {
+            "get": {
+                "tags": [
+                    "Pistas"
+                ],
+                "summary": "Obtener una lista de pistas o horarios disponibles",
+                "operationId": "221208cda654433fb35877dede189336",
+                "parameters": [
+                    {
+                        "name": "fecha",
+                        "in": "query",
+                        "description": "Fecha para consultar horarios disponibles",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date",
+                            "example": "2024-09-21 10:00:00"
+                        }
+                    },
+                    {
+                        "name": "deporte",
+                        "in": "query",
+                        "description": "Nombre del deporte para filtrar pistas",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "Fútbol"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de pistas o horarios obtenidos con éxito"
+                    },
+                    "404": {
+                        "description": "No se han encontrado las pistas"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Pistas"
+                ],
+                "summary": "Crear una nueva pista",
+                "operationId": "4345632f15c1a55bb270a7a2215ae5d5",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "deporte_id",
+                                    "longitud",
+                                    "ancho"
+                                ],
+                                "properties": {
+                                    "deporte_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "longitud": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 30.5
+                                    },
+                                    "ancho": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 20
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Pista creada con éxito"
+                    },
+                    "403": {
+                        "description": "No tiene permisos para realizar esta acción"
+                    },
+                    "404": {
+                        "description": "Deporte no encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/pistas/{id}": {
+            "get": {
+                "tags": [
+                    "Pistas"
+                ],
+                "summary": "Obtener detalles de una pista específica",
+                "operationId": "474be561d7de8dff70a01214dfe596e2",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la pista",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalles de la pista obtenidos con éxito"
+                    },
+                    "404": {
+                        "description": "Pista no encontrada"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Pistas"
+                ],
+                "summary": "Actualizar los datos de una pista",
+                "operationId": "fb3ccef734f1004910babede4b6bdb7f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la pista",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "deporte_id",
+                                    "longitud",
+                                    "ancho"
+                                ],
+                                "properties": {
+                                    "deporte_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "longitud": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 30.5
+                                    },
+                                    "ancho": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 20
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Pista actualizada con éxito"
+                    },
+                    "404": {
+                        "description": "Pista no encontrada"
+                    },
+                    "403": {
+                        "description": "No tiene permisos para realizar esta acción"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Pistas"
+                ],
+                "summary": "Eliminar una pista",
+                "operationId": "abfe46ac0d562e2b3803c19d3c6f71e1",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la pista",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Pista eliminada con éxito"
+                    },
+                    "404": {
+                        "description": "Pista no encontrada"
+                    },
+                    "403": {
+                        "description": "No tiene permisos para realizar esta acción"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/reservas": {
+            "get": {
+                "tags": [
+                    "Reservas"
+                ],
+                "summary": "Obtener una lista de reservas o reservas por fecha",
+                "operationId": "812c9e7b7e016e9b6a9af5ef282ed073",
+                "parameters": [
+                    {
+                        "name": "fecha",
+                        "in": "query",
+                        "description": "Fecha para consultar las reservas",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date",
+                            "example": "2024-10-21"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de reservas obtenidas con éxito"
+                    },
+                    "404": {
+                        "description": "No se han encontrado las reservas"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Reservas"
+                ],
+                "summary": "Crear una nueva reserva",
+                "operationId": "e3f47ce0a8ad7e1170af7c0687fb45d8",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "pista_id",
+                                    "socio_id",
+                                    "fecha",
+                                    "hora"
+                                ],
+                                "properties": {
+                                    "pista_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "socio_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "fecha": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2024-10-21"
+                                    },
+                                    "hora": {
+                                        "type": "string",
+                                        "format": "time",
+                                        "example": "10:00:00"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Reserva creada con éxito"
+                    },
+                    "404": {
+                        "description": "Socio o pista no encontrados"
+                    },
+                    "400": {
+                        "description": "Error en la fecha o hora de la reserva"
+                    },
+                    "403": {
+                        "description": "No tiene permisos para realizar esta acción"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/reservas/{id}": {
+            "get": {
+                "tags": [
+                    "Reservas"
+                ],
+                "summary": "Obtener detalles de una reserva específica",
+                "operationId": "78c94ea5cca7a274bb23ee040e7bb942",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la reserva",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalles de la reserva obtenidos con éxito"
+                    },
+                    "404": {
+                        "description": "Reserva no encontrada"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Reservas"
+                ],
+                "summary": "Actualizar los datos de una reserva",
+                "operationId": "560442fd5d1b2f7eb4905d94aafb6f15",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la reserva",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "pista_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "socio_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "fecha": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2024-10-21"
+                                    },
+                                    "hora": {
+                                        "type": "string",
+                                        "format": "time",
+                                        "example": "10:00:00"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Reserva actualizada con éxito"
+                    },
+                    "404": {
+                        "description": "Reserva no encontrada"
+                    },
+                    "400": {
+                        "description": "Error en la fecha o hora de la reserva"
+                    },
+                    "403": {
+                        "description": "No tiene permisos para realizar esta acción"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Reservas"
+                ],
+                "summary": "Eliminar una reserva",
+                "operationId": "a7830e90f267cc0fbee2714beb848a1c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la reserva",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Reserva eliminada con éxito"
+                    },
+                    "404": {
+                        "description": "Reserva no encontrada"
+                    },
+                    "403": {
+                        "description": "No tiene permisos para realizar esta acción"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/socios": {
+            "get": {
+                "tags": [
+                    "Socios"
+                ],
+                "summary": "Obtener una lista de socios",
+                "operationId": "a5e3840d2cf49a338c021b9d1c248e47",
+                "responses": {
+                    "200": {
+                        "description": "Lista de socios obtenida con éxito"
+                    },
+                    "404": {
+                        "description": "No se han encontrado socios"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Socios"
+                ],
+                "summary": "Registrar un nuevo socio",
+                "operationId": "db1c0f7dd3e8aadb8c1175e39a4ccddb",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nombre",
+                                    "dni"
+                                ],
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string",
+                                        "example": "Carlos"
+                                    },
+                                    "dni": {
+                                        "type": "string",
+                                        "example": "12345678P"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Socio registrado con éxito"
+                    },
+                    "403": {
+                        "description": "No tiene permisos para realizar esta acción"
+                    },
+                    "500": {
+                        "description": "Socio existente, pruebe otro dni"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/socios/{id}": {
+            "get": {
+                "tags": [
+                    "Socios"
+                ],
+                "summary": "Obtener detalles de un socio específico",
+                "operationId": "f8e3c8494374a95c50bd6be09b8f366f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del socio",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalles del socio obtenidos con éxito"
+                    },
+                    "404": {
+                        "description": "Socio no encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Socios"
+                ],
+                "summary": "Actualizar los datos de un socio",
+                "operationId": "4c9bb738587384e9923f968f8accd879",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del socio",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nombre",
+                                    "dni"
+                                ],
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string",
+                                        "example": "Carlos"
+                                    },
+                                    "dni": {
+                                        "type": "string",
+                                        "example": "12345678P"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Socio actualizado con éxito"
+                    },
+                    "403": {
+                        "description": "No tiene permisos para realizar esta acción"
+                    },
+                    "404": {
+                        "description": "Socio no encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Socios"
+                ],
+                "summary": "Eliminar un socio",
+                "operationId": "837325c73107f9b627533d8cea061bd7",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del socio",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Socio eliminado con éxito"
+                    },
+                    "403": {
+                        "description": "No tiene permisos para realizar esta acción"
+                    },
+                    "404": {
+                        "description": "Socio no encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/login": {
+            "post": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "summary": "Iniciar sesión",
+                "operationId": "b860dee2b4dd71501cd036971fc3833a",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "contrasenya"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "pablo@gmail.com"
+                                    },
+                                    "contrasenya": {
+                                        "type": "string",
+                                        "example": "1234"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Token generado"
+                    },
+                    "400": {
+                        "description": "Contraseña incorrecta"
+                    },
+                    "404": {
+                        "description": "Usuario no encontrado"
+                    }
+                }
+            }
+        },
+        "/api/v1/registro": {
+            "post": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "summary": "Registrar un nuevo usuario",
+                "operationId": "8025dd8a5875c207988cb09ecbfd0427",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nombre",
+                                    "email",
+                                    "contrasenya",
+                                    "conf_email"
+                                ],
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string",
+                                        "example": "Pablo"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "pablo@gmail.com"
+                                    },
+                                    "conf_email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "pablo@gmail.com"
+                                    },
+                                    "contrasenya": {
+                                        "type": "string",
+                                        "example": "1234"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuario registrado con éxito"
+                    },
+                    "500": {
+                        "description": "Usuario existente, pruebe otro correo"
+                    }
+                }
+            }
+        },
+        "/api/v1/usuarios": {
+            "get": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "summary": "Obtener una lista de usuarios",
+                "operationId": "a25d2373e5467dc335ea0fcc231f571c",
+                "responses": {
+                    "200": {
+                        "description": "Lista de usuarios obtenida con éxito"
+                    },
+                    "404": {
+                        "description": "No se han encontrado usuarios"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/usuarios/{id}": {
+            "get": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "summary": "Obtener detalles de un usuario específico",
+                "operationId": "f78387c8739b2423bde11f71ff114d1d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del usuario",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalles del usuario obtenidos con éxito"
+                    },
+                    "404": {
+                        "description": "Usuario no encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "summary": "Actualizar los datos de un usuario",
+                "operationId": "a8ab6bb7df25980d2728daeccaa4e645",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del usuario",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nombre",
+                                    "email",
+                                    "contrasenya"
+                                ],
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string",
+                                        "example": "Pablo"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "pablo@gmail.com"
+                                    },
+                                    "contrasenya": {
+                                        "type": "string",
+                                        "example": "1234"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuario actualizado con éxito"
+                    },
+                    "403": {
+                        "description": "No tiene permisos para realizar esta acción"
+                    },
+                    "404": {
+                        "description": "Usuario no encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "summary": "Eliminar un usuario",
+                "operationId": "25e4dca335cf2c1fec028235d8202147",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del usuario",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuario eliminado con éxito"
+                    },
+                    "403": {
+                        "description": "No tiene permisos para realizar esta acción"
+                    },
+                    "404": {
+                        "description": "Usuario no encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "description": "Usa un token de acceso para autenticar las peticiones",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Deportes",
+            "description": "Deportes"
+        },
+        {
+            "name": "Pistas",
+            "description": "Pistas"
+        },
+        {
+            "name": "Reservas",
+            "description": "Reservas"
+        },
+        {
+            "name": "Socios",
+            "description": "Socios"
+        },
+        {
+            "name": "Usuarios",
+            "description": "Usuarios"
+        }
+    ]
+}
